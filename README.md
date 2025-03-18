@@ -46,4 +46,24 @@ The auction house application is designed for ease of use with the following fun
    Once the dependencies are installed, you can start the application by running: `npm run dev`
    The application will then be accessible at `http://localhost:3000` or the port specified in your project settings.
 
+## Contributing
 
+While this project is primarily a personal, school-based project, you are welcome to explore and play around with it. If you find it interesting or useful for your learning, feel free to fork the repository and experiment with your ideas.
+
+As this is a part of my academic coursework, I am not seeking contributions. However, any insights, suggestions, or feedback are always appreciated. If you have any, please feel free to reach out or open an issue in the repository for discussion.
+
+Thank you for your interest and understanding!
+
+## Credits and Acknowledgements
+
+I would like to extend my gratitude and acknowledge the following resources and support that have been instrumental in the development of this project:
+
+- **Bootstrap Icons**: The icons used in this project are sourced from [Bootstrap Icons](https://icons.getbootstrap.com/), which provided an excellent set of visuals to enhance the user interface.
+
+- **Unsplash Images**: Many thanks to [Unsplash.com](https://unsplash.com/) for providing high-quality, royalty-free images that have been used throughout this project. The placeholder images and background visuals are particularly sourced from here.
+
+- **Self-Created Placeholder**: The placeholder image used is a creation of my own, based on the background image obtained from Unsplash.
+
+- **Noroff Course Content**: Immense gratitude to the Noroff course content for providing the foundational knowledge and guidance throughout this project.
+
+- **Classmates and Discord Server**: A special thanks to my classmates and the members of our Discord server for their continuous support, insights, and valuable discussions.
