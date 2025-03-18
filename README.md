@@ -31,6 +31,19 @@ The auction house application is designed for ease of use with the following fun
 ## Installation
  To set up this project locally, follow the steps oulined below: 
 
- - Prerequisites: Ensure you have Node.js and npm (Node Package Manager) installed on your machine. You can download them from the [Node.js website](https://nodejs.org/).
- 
+1. **Prerequisites**:
+   Ensure you have Node.js and npm (Node Package Manager) installed on your machine. You can download them from the [Node.js website](https://nodejs.org/).
+
+2. **Clone the Repository**:
+   To clone the project repository, run the following command in your terminal:
+
+`git clone https://github.com/MandeepKs/Auction`
+
+3. **Install Dependencies**:
+   After cloning the repository, navigate to the project directory and run `npm i` to install all the necessary dependencies.
+
+4. **Running the Application**:
+   Once the dependencies are installed, you can start the application by running: `npm run dev`
+   The application will then be accessible at `http://localhost:3000` or the port specified in your project settings.
+
 
