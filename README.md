@@ -4,7 +4,7 @@
 
 ## Description
 
-This project is a front-end development semester project created for my school. It is an auction house application that leverages the Noroff API to manage profiles, listings, credits, and bidding functionalities. This application showcases my skills in design, functionality, and API integration.
+This project is a front-end development semester project. It is an auction house application that leverages the Noroff API to manage profiles, listings, credits, and bidding functionalities. This application showcases my skills in design, functionality, and API integration.
 
 Key features of the project include:
 
