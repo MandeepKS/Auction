@@ -14,3 +14,16 @@ Key features of the project include:
 ## Usage
 
 The auction house application is designed for ease of use with the following functionalities:
+
+- Account Creation: Users can sign up using their noroff.no or stud.noroff.no email addresses. Upon successful registration, users are credited with 1,000 credits to start bidding.
+
+- Viewing Listings: All auction listings are viewable by anyone, regardless of whether they are logged in. This allows visitors to browse through the available auctions without needing an account.
+
+- Creating Listings: Registered users can create their auction listings. This feature enables users to add items to the auction pool, enhancing the marketplace's variety.
+
+- Deleting Listings: Users can delete their listings, providing control and flexibility over their auction items.
+
+- Bidding on Auctions: Registered users can use their credits to bid on listed auctions. Bidding is a straightforward process, and users can participate in any open auction.
+
+- API Limitations: To maintain relevance and quality, the API fetch has been limited to 500 posts. This ensures that the listings primarily showcase auctions from our class and related items.
+
