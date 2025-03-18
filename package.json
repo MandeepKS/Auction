@@ -1,0 +1,21 @@
+{
+  "name": "auction",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:sass": "sass src/scss/styles.scss public/styles.css --watch",
+    "start": "live-server"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^5.3.3",
+    "sass": "^1.79.4"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  }
+}
