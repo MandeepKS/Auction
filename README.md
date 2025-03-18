@@ -46,6 +46,9 @@ The auction house application is designed for ease of use with the following fun
    Once the dependencies are installed, you can start the application by running: `npm run dev`
    The application will then be accessible at `http://localhost:3000` or the port specified in your project settings.
 
+## Contact
+[LinkedIn](https://www.linkedin.com/in/mandeep-salhan-194422357/)
+
 ## Contributing
 
 While this project is primarily a personal, school-based project, you are welcome to explore and play around with it. If you find it interesting or useful for your learning, feel free to fork the repository and experiment with your ideas.
