@@ -1,4 +1,6 @@
-export function checkActiveUser(){
+import { checkCredits } from "./checkCredits.mjs";
+
+export async function checkActiveUser(){
     const isLogin = localStorage.getItem('isLogin');
     const jsonString = localStorage.getItem('profile');
     const activeProfile = document.getElementById('activeProfile');
@@ -6,8 +8,10 @@ export function checkActiveUser(){
     const dropDown = document.getElementById('userDropDown');
     const auctionModalBtn = document.getElementById('newAuctionModalBtn');
     const loginBtn = document.getElementById('loginBtnHome');
+    const creditChecks = document.getElementById('credits');
     if(isLogin){
         activeProfile.textContent = "Welcome, " +userObject.name;
+        creditChecks.textContent = "Credits : " +  await checkCredits(userObject.name);
         loginBtn.style.display = "none";
     }
     else{

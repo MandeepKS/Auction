@@ -4,15 +4,13 @@ import { headers, PROFILE_URL } from "../../api/auth/constants.mjs";
 
 export async function adminProfile(){
     const isLogin = localStorage.getItem('isLogin');
-    const jsonString = localStorage.getItem('profile');
-    const userObject = JSON.parse(jsonString);
-    const userName =   userObject.name;
-    const avatarURL = PROFILE_URL + "/" + userName;
-    // console.log(userObject);
-
-    const adminProfile = document.getElementById("adminProfile");
+        const adminProfile = document.getElementById("adminProfile");
     const container = document.createElement('div');
     if(isLogin){
+        const jsonString = localStorage.getItem('profile');
+        const userObject = JSON.parse(jsonString);
+        const userName =   userObject.name;
+        const avatarURL = PROFILE_URL + "/" + userName;
         adminProfile.textContent = "Welcome, " + userName;
         try {
             const response = await fetch(avatarURL, {

@@ -1,6 +1,7 @@
 import { fetchListings, fetchSingleList } from "../../api/auth/auctionsListings/fetchList.mjs";
 import { previousTime } from "../../handler/previousTime.mjs";
-import {bidStatusCheck} from "../../handler/bidStatus.mjs";
+import {bidEndTimeCheck, bidStatusCheck} from "../../handler/bidStatus.mjs";
+import { bidSubmit } from "../../handler/placeBid.mjs";
 export async function renderListings() {
     const rawData = await fetchListings();
     let auctions = document.getElementById('auctions');
@@ -172,25 +173,30 @@ export async function renderSingleList(){
 
   const activeTitle = document.createElement('h6');
   activeTitle.className = 'fw-bold';
-  activeTitle.innerText = 'Active Bidding';
+  activeTitle.innerText = 'Bidding Detail';
 
   const timer = document.createElement('p');
   timer.className = 'text-muted';
-  timer.innerText = 'Bidding ends in 7 days 16 hours'; // You can update this with a dynamic countdown
+  timer.innerText =  bidEndTimeCheck(list.endsAt); //dynamic countdown
 
   const button = document.createElement('button');
   button.className = 'btn btn-outline-dark mb-2';
   if (isLogin) {
-    button.innerText = 'Place Bid';
-    button.addEventListener('click', () => {
-      const bidAmount = prompt('Enter bid amount:');
-      if (bidAmount && !isNaN(bidAmount)) {
-        // Here you would call a bidding function or API
-        console.log(`User bid: ${bidAmount}`);
-      } else {
-        alert('Please enter a valid number.');
-      }
-    });
+    if(bidStatusCheck(list.endsAt) === "Active"){
+      button.innerText = 'Place Bid';
+      button.addEventListener('click', () => {
+        const bidAmount = prompt('Enter bid amount:');
+        if (bidAmount && !isNaN(bidAmount)) {
+          bidSubmit(bidAmount, list.id);
+          console.log(`User bid: ${bidAmount}`);
+        } else {
+          alert('Please enter a valid number.');
+        }
+      });
+    } else{
+      button.style.display = "none";
+    }
+
   } else {
     button.innerText = 'Log in to bid';
     button.addEventListener('click', () => {
