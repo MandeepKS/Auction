@@ -8,64 +8,225 @@
   <title>The Auction</title>
   <!-- Link to compiled CSS -->
   <link rel="stylesheet" href="public/styles.css">
+  <!-- Link bootstrap js -->
+  <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <!-- Link to your JavaScript file -->
-  <script defer src="src/index.js"></script>
+  <script defer type="module" src="src/js/index.js"></script>
 </head>
 <body>
-  <div class="px-4 py-5 px-md-5 text-center text-lg-start bg-img">
-    <div class="container mt-5">
-      <div class="row gx-lg-5 align-items-center">
-        <div class="col-lg-6 mb-5 mb-lg-0">
-          <h1 class="my-5 display-3 fw-bold ls-tight">
-            Welcome to<br />
-            <span class="text-primary">Auction !!!</span>
-          </h1>
-          <p class="login-p">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Eveniet, itaque accusantium odio, soluta, corrupti aliquam
-            quibusdam tempora at cupiditate quis eum maiores libero
-            veritatis? Dicta facilis sint aliquid ipsum atque?
-          </p>
-        </div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<div class="container-fluid maxWidth mx-auto mx-sm-5 mx-lg-auto justify-content-between">
+  <a class="navbar-brand" href="/"><h1 class="mb-0">Gavel</h1></a>
+  <div class="d-flex justify-content-end w-100">
+  <div class="nav-item dropdown" id="userDropDown">
+      <a class="nav-link dropdown-toggle" href="#" id="activeProfile" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      </a>
+      <ul class="dropdown-menu dropdown-menu-end">
+      <li><a class="dropdown-item" href="/admin/profile">Profile</a></li>
+      <li><a class="dropdown-item" href="/admin/listings">Listings</a></li>
+      <li><a class="dropdown-item" href="/admin/wins">Wins</a></li>
+      <li><hr class="dropdown-divider"></li>
+      <li><a class="dropdown-item" id="logOut" href="#">Logout</a></li>
+    </ul>
+    </div>
+  </div>
+</div>
+</div>
+</nav>
 
-        <div class="col-lg-6 mb-5 mb-lg-0">
-          <div class="card mt-4">
-            <div class="card-body py-5 px-md-5">
-              <form class="was-validated" id="loginForm" action="/auth/login" method="post">
-                <div class="row">
-                  <!-- Email input -->
-                  <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">@</span>
-                    <input type="email" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1" name="email" required>
-                  </div>
-                  
-
-                  <!-- Password input -->
-                  <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1"><i class="bi bi-key"></i></span>
-                    <input type="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1" minlength="8" name= "password" required>
-                  </div>
-
-                  <!-- Checkbox -->
-                  <div class="form-check d-flex justify-content-center mb-4">
-                    <input class="form-check-input me-2" type="checkbox" value="" id="rememberme" checked />
-                    <label class="form-check-label" for="rememberme">
-                      Remember Me
-                    </label>
-                  </div>
-
-                  <!-- Submit button -->
-                  <button type="submit" class="btn btn-outline-primary btn-block mb-4">
-                    Login
-                  </button>
-                </form>
-                  <!-- Register buttons -->
-                  <a href="/register/index.html" class="btn btn-primary btn-block mb-4">Sign Up</a>
-              </div>
-          </div>
-        </div>
+<main class="d-flex flex-column justify-content-center align-items-center">
+<!-- Unauthorized modal -->
+<div class="modal fade" tabindex="-1" id="unauthModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="d-flex justify-content-end pt-3 pe-3 mb-5">
+        <i
+          class="bi bi-x-lg"
+          type="button"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></i>
+      </div>
+      <div class="d-flex flex-column align-items-center justify-content-center mb-5">
+        <p>You must log in to view the auctions.</p>
+        <a href="accounts/login/" class="text-white fw-bolder bg-secondary rounded border-0 px-5 py-2 mt-4">
+          Log in
+        </a>
       </div>
     </div>
   </div>
+</div>
+
+<!-- Create auction modal -->
+<div class="modal fade" tabindex="-1" id="newAuctionModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="d-flex justify-content-end pt-3 pe-3">
+        <i
+          class="bi bi-x-lg"
+          type="button"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></i>
+      </div>
+      <form  id="createAuctionModalForm"
+        class="row flex-column align-items-center p-3 mb-4">
+        <label for="title" class="col-10 fw-bold p-1">Title of auction</label>
+        <input
+          id="auctionTitle"
+          class="col-10 rounded border p-1 mb-3"
+          name="title"
+          type="text"
+          placeholder="A very cool..."
+          maxlength="280"
+          required/>
+        <label for="media" class="col-10 fw-bold p-1">Choose your image:</label
+        >
+        <input
+          id="mediaOne"
+          class="col-10 rounded border p-1 mb-3"
+          name="media"
+          type="url"
+          placeholder="URL to image one"
+        />
+
+        <label for="description" class="col-10 fw-bold p-1"
+          >Description</label
+        >
+        <textarea
+          id="auctionDesc"
+          class="col-10 rounded border mb-3"
+          name="description"
+          cols="30"
+          rows="5"
+          maxlength="280"
+          placeholder="Max 280 characters"
+        ></textarea>
+
+        <!-- Radios -->
+        <div class="col-10 mb-3">
+          <p class="fw-bold mb-0">Auctions ends in:</p>
+          <div class="form-check">
+            <input
+              id="optionOne"
+              class="form-check-input"
+              type="radio"
+              name="endsAt"
+              value="6"
+              checked
+            />
+            <label class="form-check-label" for="flexRadioDefault1">
+              6 hours
+            </label>
+          </div>
+          <div class="form-check">
+            <input
+              id="optionTwo"
+              class="form-check-input"
+              type="radio"
+              name="endsAt"
+              value="12"
+            />
+            <label class="form-check-label" for="flexRadioDefault2">
+              12 hours
+            </label>
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          class="createAuctionBtn text-white col-10 bg-secondary fw-bolder rounded border-0 py-2 mt-3"
+        >
+          Create auction
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Header with new auction / log in button -->
+<header
+  class="row w-100 bg-light d-flex flex-column justify-content-around py-3 align-items-sm-center py-sm-5"
+>
+  <div class="text-start d-flex flex-column col-6">
+    <p id="headerText" class="text-secondary mb-0">Sell your</p>
+    <p id="headerOutline" class="text-secondary"></p>
+  </div>
+
+  <button
+    class="modalBtn bg-secondary text-white fw-bold rounded border-0 py-2 col-6 col-sm-5 col-md-4 col-lg-3 mx-auto cta-button"
+    id="newAuctionModalBtn"
+    type="button"
+    data-bs-toggle="modal"
+    data-bs-target="#newAuctionModal"
+  >
+    New auction
+  </button>
+
+  <a
+    href="/login"
+    class="bg-secondary text-white text-center rounded border-0 py-2 px-5 col-10 col-sm-7 col-md-6 col-lg-3 mx-auto"
+    id="loginBtnHome"
+  >
+    Log in
+  </a>
+</header>
+
+<!-- Search & filters-->
+<div class="container-fluid maxWidth">
+  <div
+    class="row mt-5 mb-4 justify-content-center justify-content-md-around"
+  >
+    <div
+      class="p-0 d-flex align-items-center justify-content-between col-11 col-sm-9 justify-content-md-end col-lg-11"
+    >
+      <input
+        id="search"
+        class="rounded border-1 border-secondary me-3 px-5 py-2"
+        placeholder="Search"
+        aria-label="Search"
+      />
+
+      <div id="filter" class="dropdown">
+        <i
+          class="bi bi-funnel-fill dropdown-toggle"
+          type="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+        </i>
+        <ul id="filterMenu" class="dropdown-menu">
+          <li id="filterOne" class="dropdown-item">Most popular</li>
+          <li id="filterTwo" class="dropdown-item">Ended auctions</li>
+          <li id="filterFour" class="dropdown-item">All</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- API auctions -->
+<section class="container-fluid d-flex flex-column maxWidth">
+  <h2 class="text-center mb-4">Latest auctions</h2>
+
+  <div id="auctions" class="mb-4"></div>
+  <div id="loader" class="d-flex justify-content-center align-items-center">
+  <div class="spinner-border" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div></div>
+
+  <button
+    id="loadMoreBtn"
+    class="text-white fw-bolder w-50 bg-secondary rounded border-0 py-2 mx-auto mb-5"
+  >
+    Load more
+  </button>
+</section>
+</main>
+
+<footer class="text-center bg-secondary mt-auto p-2">
+<h1 class="text-white">The Auction</h1>
+<p class="text-white my-auto">&#169; Mandeep K S</p>
+</footer>
 </body>
 </html>
