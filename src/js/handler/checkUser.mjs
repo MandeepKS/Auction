@@ -1,5 +1,12 @@
 import { checkCredits } from "./checkCredits.mjs";
-
+/**
+ * Checks if a user is logged in, updates UI elements accordingly,
+ * and displays user credits if logged in.
+ *
+ * @async
+ * @function checkActiveUser
+ * @returns {Promise<void>} A promise that resolves once the DOM is updated based on login status.
+ */
 export async function checkActiveUser(){
     const isLogin = localStorage.getItem('isLogin');
     const jsonString = localStorage.getItem('profile');
@@ -21,6 +28,10 @@ export async function checkActiveUser(){
     }
 }
 
+/**
+ * Event listener for logging out the user.
+ * Clears localStorage and redirects to the homepage.
+ */
 const logOut = document.getElementById('logOut');
 if(logOut){
     logOut.addEventListener("click", function(){

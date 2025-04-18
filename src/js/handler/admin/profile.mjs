@@ -1,7 +1,13 @@
 import { headers, PROFILE_URL } from "../../api/auth/constants.mjs";
 
-
-
+/**
+ * Renders the admin profile page by fetching and displaying the user's profile data.
+ * If the user is not logged in, redirects to the unauthorized admin page.
+ *
+ * @async
+ * @function adminProfile
+ * @returns {Promise<void>} A promise that resolves once the profile is rendered or user is redirected.
+ */
 export async function adminProfile(){
     const isLogin = localStorage.getItem('isLogin');
         const adminProfile = document.getElementById("adminProfile");
@@ -87,7 +93,6 @@ export async function adminProfile(){
                 listingsContainer.appendChild(listings);
                 listingsContainer.appendChild(wins);
 
-                // Assemble elements
                 card.appendChild(profileImageContainer);
                 card.appendChild(profileName);
                 card.appendChild(profileEmail);
@@ -110,7 +115,14 @@ export async function adminProfile(){
     }
 }
 
-
+/**
+ * Prompts the user for a new avatar image URL and updates the profile avatar.
+ * On success, re-renders the admin profile.
+ *
+ * @async
+ * @function changeAvatarImage
+ * @returns {Promise<void>} A promise that resolves after the avatar image is updated or fails.
+ */
 async function changeAvatarImage(){
     const newImage = prompt("Enter new image URL:");
     const jsonString = localStorage.getItem('profile');

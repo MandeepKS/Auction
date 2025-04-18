@@ -1,4 +1,12 @@
 import { loginUser } from "../api/auth/login.mjs";
+/**
+ * Attaches a submit event listener to the login form.
+ * On form submission, prevents default behavior, collects form data,
+ * and passes it to the `loginUser` function.
+ *
+ * @function
+ * @returns {void}
+ */
 export function loginFormRoute() {
     const logInForm = document.getElementById("loginForm");
     if (!logInForm) {

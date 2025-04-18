@@ -1,3 +1,10 @@
+/**
+ * Checks whether the bid is still active or has ended based on the end time.
+ *
+ * @function
+ * @param {string|Date} endsAt - The ending date/time of the bid in ISO string or Date format.
+ * @returns {string} Returns "Active" if current time is before end time, else "Bid Ended".
+ */
 export function bidStatusCheck(endsAt){
     const now = new Date();
     const endDate = new Date(endsAt);
@@ -5,6 +12,13 @@ export function bidStatusCheck(endsAt){
     return statusText;
 }
 
+/**
+ * Calculates the time remaining until the bidding ends and returns a human-readable string.
+ *
+ * @function
+ * @param {string|Date} endsAt - The ending date/time of the bid in ISO string or Date format.
+ * @returns {string} A message like "Bidding ends in X days Y hours" or "The bidding is over!".
+ */
 export function bidEndTimeCheck(endsAt){
     const now = new Date();
     const endDate = new Date(endsAt);

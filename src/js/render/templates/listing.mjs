@@ -2,6 +2,18 @@ import { fetchListings, fetchSingleList } from "../../api/auth/auctionsListings/
 import { previousTime } from "../../handler/previousTime.mjs";
 import {bidEndTimeCheck, bidStatusCheck} from "../../handler/bidStatus.mjs";
 import { bidSubmit } from "../../handler/placeBid.mjs";
+/**
+ * Renders all auction listings on the homepage.
+ *
+ * - Fetches all listings from the backend.
+ * - Displays a Bootstrap grid of cards with title, image, description, and bid status.
+ * - Shows a loading indicator while fetching.
+ * - Handles empty listings gracefully.
+ *
+ * @async
+ * @function
+ * @returns {Promise<Array<Object>>} - An array of listing objects rendered on the page.
+ */
 export async function renderListings() {
     const rawData = await fetchListings();
     let auctions = document.getElementById('auctions');
@@ -95,6 +107,20 @@ export async function renderListings() {
     return listings;
 }
 
+
+/**
+ * Renders a single auction listing page with detailed information and bidding functionality.
+ *
+ * - Fetches listing data based on URL parameter `id`.
+ * - Displays listing card with image, title, description, timestamps, and bid status.
+ * - Shows a bidding section (button and countdown) if the user is logged in.
+ * - Handles bid submission via prompt.
+ * - Displays bidder avatar and winning info if available.
+ *
+ * @async
+ * @function
+ * @returns {Promise<void>} - This function updates the DOM but does not return any value.
+ */
 export async function renderSingleList(){
   const url = new URL(location.href);
   const id = url.searchParams.get("id");
@@ -200,35 +226,48 @@ export async function renderSingleList(){
   } else {
     button.innerText = 'Log in to bid';
     button.addEventListener('click', () => {
-      window.location.href = '/login'; // Adjust login path if needed
+      window.location.href = '/login'; //login path
     });
   }
-
-  const bottomStatus = document.createElement('div');
-  bottomStatus.className = 'd-flex align-items-center p-2 mt-2 rounded';
-  bottomStatus.style.backgroundColor = '#d3e4c2';
-
-  const profile = document.createElement('img');
-  profile.src = list.bids?.[0]?.bidder?.avatar.url || '/public/images/default.png';
-  profile.alt = 'Avatar';
-  profile.className = 'rounded-circle';
-  profile.style.width = '30px';
-  profile.style.height = '30px';
-  profile.style.objectFit = 'cover';
-
-  const bidInfo = document.createElement('span');
-  bidInfo.className = 'ms-2';
-  bidInfo.innerHTML = `<strong>1 Credits</strong> <em>WINNING</em>`;
-
-  bottomStatus.appendChild(profile);
-  bottomStatus.appendChild(bidInfo);
-
   rightCard.appendChild(activeTitle);
   rightCard.appendChild(timer);
   rightCard.appendChild(button);
-  rightCard.appendChild(bottomStatus);
+    //Bottom status
+    const highestBidder = list.bids;
+    const sortedBidders = [...highestBidder].sort((a, b) => b.amount - a.amount);
+    sortedBidders.forEach((bidder)=>{
+    const bottomStatus = document.createElement('div');
+    const avatarImg = bidder?.bidder?.avatar.url ||'https://images.unsplash.com/photo-1579547945413-497e1b99dac0?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&q=80&h=500&w=1500';
+    const bidderName = bidder?.bidder?.name;
+    const bidAmount = bidder?.amount;
+    console.log('reverse bid', bidder);
+    bottomStatus.className = 'd-flex align-items-center p-2 mt-2 rounded';
+    bottomStatus.style.backgroundColor = '#d3e4c2';
 
-  rightCol.appendChild(rightCard);
+    const profile = document.createElement('img');
+    profile.src = avatarImg;
+    profile.alt = 'AVT';
+    profile.className = 'rounded-circle';
+    profile.style.width = '30px';
+    profile.style.height = '30px';
+    profile.style.objectFit = 'cover';
+
+    const bidInfo = document.createElement('div');
+    bidInfo.className = 'd-flex justify-content-between w-100 ms-2';
+
+    const nameSpan = document.createElement('span');
+    nameSpan.innerText = bidderName;
+
+    const amountSpan = document.createElement('span');
+    amountSpan.innerHTML = `<strong>$${bidAmount}</strong>`;
+
+    bidInfo.appendChild(nameSpan);
+    bidInfo.appendChild(amountSpan);
+    bottomStatus.appendChild(profile);
+    bottomStatus.appendChild(bidInfo);
+    rightCard.appendChild(bottomStatus);
+  });
+rightCol.appendChild(rightCard);
 
   // === Assemble Both Columns ===
   innerRow.appendChild(leftCol);

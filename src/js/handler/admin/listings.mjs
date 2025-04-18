@@ -1,6 +1,19 @@
 import { headers,PROFILE_URL } from "../../api/auth/constants.mjs";
 import { previousTime } from "../../handler/previousTime.mjs";
 import {bidStatusCheck} from "../../handler/bidStatus.mjs";
+/**
+ * Fetches and displays listings for an admin user.
+ *
+ * This function checks if the user is logged in by looking for a login status in the
+ * localStorage. If the user is logged in, it fetches their auction listings and displays
+ * them on the admin profile page. For each listing, it creates a Bootstrap grid with
+ * cards displaying information such as the listing title, description, bid count, and status.
+ * It also handles displaying a default image if no image is available.
+ *
+ * @async
+ * @function adminListings
+ * @throws {Error} Throws an error if the listings fetch fails.
+ */
 export async function adminListings(){
     const isLogin = localStorage.getItem('isLogin');
     const jsonString = localStorage.getItem('profile');
