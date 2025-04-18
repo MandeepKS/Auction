@@ -39,9 +39,6 @@ export const API_KEY = "9508e582-7cbe-42b9-9ffa-e9f0fc89d971";
  */
 export function headers(){
     const token = localStorage.getItem("token");
-    if (!token) {
-        throw new Error('Authorization token is missing.');
-    }
     return{
         "Content-Type":"application/json",
         Authorization: `Bearer ${token}`,
