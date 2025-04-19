@@ -1,10 +1,9 @@
 @import "../../node_modules/bootstrap/scss/bootstrap.scss";
 @import "font.scss";
 @import "colors.scss";
+@import "responsive.scss";
 
-body {
-  background-color: #f8f9fa;
- }
+
  .navbar{
   padding:1.5rem 0;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
@@ -25,7 +24,7 @@ body {
   }
 }
 .hero-section{
-  padding-top: 10rem !important;
+  padding-top: 10rem;
   background-color: $lightgreen;
   .container{
     height:100%;

@@ -1,0 +1,13 @@
+@media screen and (max-width: 991px){
+    .nav{
+        &-menu{
+            margin-top: 0.5rem;
+           justify-content: flex-start !important;
+        }
+    }
+    .hero{
+        &-section{
+            padding-top: 5rem !important;
+        }
+    }
+}
