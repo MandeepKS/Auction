@@ -20,6 +20,7 @@ export async function renderListings() {
   const auctions = document.getElementById('auctions');
   const loader = document.getElementById('loader');
   auctions.appendChild(loader);
+  console.log(listings);
 
   const searchInput = document.getElementById('searchInput');
 
@@ -47,31 +48,36 @@ export async function renderListings() {
       image.alt = list.title || 'No Image Available';
       image.src = list.media?.[0]?.url || '/public/images/nomedia.png';
 
+      // fallback if image fails to load (URL is broken, image missing, etc.)
+      image.onerror = function () {
+        this.onerror = null; // Prevent infinite loop in case fallback also fails
+        this.src = '/public/images/nomedia.png';
+      };
       const title = document.createElement('h5');
-      title.className = 'card-title';
+      title.className = 'card-title roboto-bold';
       title.innerText = list.title || 'No Title';
 
       const text = document.createElement('p');
-      text.className = 'card-text';
+      text.className = 'card-text roboto-light';
       text.innerText = list.description || 'No description available';
 
       const bid = document.createElement('p');
-      bid.className = 'card-text fw-bold fst-italic';
+      bid.className = 'card-text roboto-regular fst-italic';
       const label = document.createElement('label');
       label.innerText = 'Bids so far: ';
       bid.appendChild(label);
       bid.appendChild(document.createTextNode(` ${list._count?.bids || 0}`));
 
       const listed = document.createElement('p');
-      listed.className = 'card-text text-muted fst-italic';
+      listed.className = 'card-text text-muted roboto-extralight fst-italic';
       listed.innerText = `Listing: ${previousTime(list.created)}`;
 
       const updated = document.createElement('p');
-      updated.className = 'card-text text-muted fst-italic';
+      updated.className = 'card-text text-muted roboto-extralight fst-italic';
       updated.innerText = `Updated: ${previousTime(list.updated)}`;
 
       const status = document.createElement('p');
-      status.className = 'card-text fw-bold';
+      status.className = 'card-text roboto-medium';
       status.innerText = `Status: ${bidStatusCheck(list.endsAt)}`;
 
       card.append(image, title, text, bid, listed, updated, status);
@@ -142,7 +148,7 @@ export async function renderSingleList(){
   leftCol.className = 'col-12 col-md-6';
 
   const card = document.createElement('div');
-  card.className = 'card card-home mt-3 p-3';
+  card.className = 'card card-single mt-3 p-3';
 
   const image = document.createElement('img');
   image.className = 'img-fluid';
