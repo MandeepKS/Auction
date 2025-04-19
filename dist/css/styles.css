@@ -11857,6 +11857,14 @@ h1, .h1 {
   color: #007bff;
 }
 
+.container {
+  min-height: 80vh;
+}
+
+.home-auction .row {
+  row-gap: 3rem;
+}
+
 .card-home {
   overflow: hidden;
   cursor: pointer;
@@ -11875,7 +11883,7 @@ h1, .h1 {
 }
 .card-text {
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;

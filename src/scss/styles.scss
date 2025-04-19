@@ -14,6 +14,14 @@ h1 {
   color: #007bff;
 }
 // Global
+.container{
+  min-height:80vh;
+}
+.home-auction{
+  .row{
+    row-gap:3rem;
+  }
+}
 .card{
   &-home{
     overflow: hidden;
@@ -33,7 +41,7 @@ h1 {
   }
   &-text{
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;

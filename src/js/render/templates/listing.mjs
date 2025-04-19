@@ -3,108 +3,104 @@ import { previousTime } from "../../handler/previousTime.mjs";
 import {bidEndTimeCheck, bidStatusCheck} from "../../handler/bidStatus.mjs";
 import { bidSubmit } from "../../handler/placeBid.mjs";
 /**
- * Renders all auction listings on the homepage.
+ * Renders all auction listings on the homepage and sets up search functionality.
  *
- * - Fetches all listings from the backend.
- * - Displays a Bootstrap grid of cards with title, image, description, and bid status.
- * - Shows a loading indicator while fetching.
- * - Handles empty listings gracefully.
+ * - Fetches listings from the backend.
+ * - Displays listings as Bootstrap cards.
+ * - Appends a loader during data fetch.
+ * - Includes a search input to filter listings by title.
  *
  * @async
- * @function
- * @returns {Promise<Array<Object>>} - An array of listing objects rendered on the page.
+ * @function renderListings
+ * @returns {Promise<void>}
  */
 export async function renderListings() {
-    const rawData = await fetchListings();
-    let auctions = document.getElementById('auctions');
-    let loader = document.getElementById('loader');
-    auctions.appendChild(loader);
-    const listings = rawData.data;
-    setTimeout(() => {
-        loader.remove(); // Remove loader once data is fetched
-        if (listings.length === 0) {
-            auctions.innerText = 'No listings available';
-            return;
-        }
-        // Create Bootstrap grid container and row
-        const container = document.createElement('div');
-        container.className = 'container';
-        const row = document.createElement('div');
-        row.className = 'row';
-        const url = '/list/?id=';
-        listings.forEach((list) => {
-            const id = list.id;
-            const a = document.createElement('a');
-            a.href = url + id;
-            a.style.textDecoration = 'none';
-            const colDiv = document.createElement('div');
-            colDiv.className = 'col col-12 col-md-6 col-lg-4'; // Each card takes 1/3 of the row
+  const rawData = await fetchListings();
+  const listings = rawData.data;
+  const auctions = document.getElementById('auctions');
+  const loader = document.getElementById('loader');
+  auctions.appendChild(loader);
 
-            const card = document.createElement('div');
-            card.className = 'card card-home mt-3 p-3';
+  const searchInput = document.getElementById('searchInput');
 
-            // Image setup
-            const image = document.createElement('img');
-            image.className = 'img-fluid';
-            image.alt = list.title || 'No Image Available';
-            image.src = list.media && list.media.length > 0 && list.media[0].url
-                        ? list.media[0].url
-                        : '/public/images/nomedia.png'; // Default placeholder image
+  const renderCards = (data) => {
+    auctions.innerHTML = '';
+    const container = document.createElement('div');
+    container.className = 'container';
+    const row = document.createElement('div');
+    row.className = 'row';
 
-            // Title
-            const title = document.createElement('h5');
-            title.className = 'card-title';
-            title.innerText = list.title || 'No Title';
+    data.forEach((list) => {
+      const id = list.id;
+      const a = document.createElement('a');
+      a.href = `/list/?id=${id}`;
+      a.style.textDecoration = 'none';
 
-            // Description
-            const text = document.createElement('p');
-            text.className = 'card-text';
-            text.innerText = list.description || 'No description available';
+      const colDiv = document.createElement('div');
+      colDiv.className = 'col col-12 col-md-6 col-lg-4';
 
-            // Bids Section
-            const bid = document.createElement('p');
-            bid.className = 'card-text fw-bold fst-italic';
+      const card = document.createElement('div');
+      card.className = 'card card-home mt-3 p-3';
 
-            const label = document.createElement('label');
-            label.className = 'bid-label';
-            label.innerText = 'Bids so far : ';
+      const image = document.createElement('img');
+      image.className = 'img-fluid';
+      image.alt = list.title || 'No Image Available';
+      image.src = list.media?.[0]?.url || '/public/images/nomedia.png';
 
-            bid.appendChild(label);
-            bid.appendChild(document.createTextNode(` ${list._count?.bids || 0}`)); // Handle missing bid count
+      const title = document.createElement('h5');
+      title.className = 'card-title';
+      title.innerText = list.title || 'No Title';
 
-            // Listed Section
-            const listed = document.createElement('p');
-            listed.className = 'card-text text-muted fst-italic';
-            listed.innerText = `Listing : ${previousTime(list.created)} `;
+      const text = document.createElement('p');
+      text.className = 'card-text';
+      text.innerText = list.description || 'No description available';
 
-            // Updated List section
-            const updatedList = document.createElement('p');
-            updatedList.className = 'card-text text-muted fst-italic';
-            updatedList.innerText = `Updated : ${previousTime(list.updated)}`;
+      const bid = document.createElement('p');
+      bid.className = 'card-text fw-bold fst-italic';
+      const label = document.createElement('label');
+      label.innerText = 'Bids so far: ';
+      bid.appendChild(label);
+      bid.appendChild(document.createTextNode(` ${list._count?.bids || 0}`));
 
-            // Status Section
-            const status = document.createElement('p');
-            status.className = 'card-text fw-bold';
-            status.innerText = `Status: ${bidStatusCheck(list.endsAt)}`;
-            // Append elements
-            card.appendChild(image);
-            card.appendChild(title);
-            card.appendChild(text);
-            card.appendChild(bid);
-            card.appendChild(listed);
-            card.appendChild(updatedList);
-            card.appendChild(status);
-            a.appendChild(card);
-            colDiv.appendChild(a);
-            row.appendChild(colDiv);
-        });
+      const listed = document.createElement('p');
+      listed.className = 'card-text text-muted fst-italic';
+      listed.innerText = `Listing: ${previousTime(list.created)}`;
 
-        container.appendChild(row);
-        auctions.appendChild(container);
-    }, 1000);
+      const updated = document.createElement('p');
+      updated.className = 'card-text text-muted fst-italic';
+      updated.innerText = `Updated: ${previousTime(list.updated)}`;
 
-    console.log(listings);
-    return listings;
+      const status = document.createElement('p');
+      status.className = 'card-text fw-bold';
+      status.innerText = `Status: ${bidStatusCheck(list.endsAt)}`;
+
+      card.append(image, title, text, bid, listed, updated, status);
+      a.appendChild(card);
+      colDiv.appendChild(a);
+      row.appendChild(colDiv);
+    });
+
+    container.appendChild(row);
+    auctions.appendChild(container);
+  };
+
+  setTimeout(() => {
+    loader.remove();
+    if (!listings.length) {
+      auctions.innerText = 'No listings available';
+      return;
+    }
+    renderCards(listings);
+
+    searchInput.addEventListener('input', () => {
+      const query = searchInput.value.toLowerCase();
+      const filtered = listings.filter((item) =>
+        item.title.toLowerCase().includes(query) ||
+        item.description?.toLowerCase().includes(query)
+      );
+      renderCards(filtered);
+    });
+  }, 1000);
 }
 
 
@@ -129,7 +125,7 @@ export async function renderSingleList(){
   const singleBid = document.getElementById('singleBid');
   const isLogin = localStorage.getItem('isLogin');
   const container = document.createElement('div');
-  container.className = 'container';
+  container.className = 'container mt-5 mb-5';
 
   const row = document.createElement('div');
   row.className = 'row';

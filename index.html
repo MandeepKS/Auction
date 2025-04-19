@@ -37,7 +37,7 @@
 
 <main class="d-flex flex-column justify-content-center align-items-center">
 <!-- Unauthorized modal -->
-<div class="modal fade" tabindex="-1" id="unauthModal">
+<div class="modal fade"  id="unauthModal">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="d-flex justify-content-end pt-3 pe-3 mb-5">
@@ -59,7 +59,7 @@
 </div>
 
 <!-- Create auction modal -->
-<div class="modal fade" tabindex="-1" id="newAuctionModal">
+<div class="modal fade"  id="newAuctionModal">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="d-flex justify-content-end pt-3 pe-3">
@@ -146,21 +146,13 @@
 </div>
 
 <!-- Header with new auction / log in button -->
-<header
-  class="row w-100 bg-light d-flex flex-column justify-content-around py-3 align-items-sm-center py-sm-5"
->
-  <div class="text-start d-flex flex-column col-6">
-    <p id="headerText" class="text-secondary mb-0">Sell your</p>
-    <p id="headerOutline" class="text-secondary"></p>
-  </div>
-
+<header class="row w-100 bg-light d-flex flex-column justify-content-around py-3 align-items-sm-center py-sm-5">
   <button
     class="modalBtn bg-secondary text-white fw-bold rounded border-0 py-2 col-6 col-sm-5 col-md-4 col-lg-3 mx-auto cta-button"
     id="newAuctionModalBtn"
     type="button"
     data-bs-toggle="modal"
-    data-bs-target="#newAuctionModal"
-  >
+    data-bs-target="#newAuctionModal">
     New auction
   </button>
 
@@ -171,38 +163,20 @@
   >
     Log in
   </a>
+  <div class="d-flex align-items-center justify-content-center col-12 col-sm-12 mt-3">
+  <input
+    id="searchInput"
+    class="rounded border-1 border-secondary me-3 px-5 py-2"
+    placeholder="Search"
+    aria-label="Search"
+  />
+</div>
 </header>
 
 <!-- Search & filters-->
 <div class="container-fluid maxWidth">
-  <div
-    class="row mt-5 mb-4 justify-content-center justify-content-md-around"
-  >
-    <div
-      class="p-0 d-flex align-items-center justify-content-between col-11 col-sm-9 justify-content-md-end col-lg-11"
-    >
-      <input
-        id="search"
-        class="rounded border-1 border-secondary me-3 px-5 py-2"
-        placeholder="Search"
-        aria-label="Search"
-      />
+  <div class="row mt-5 mb-4 justify-content-center justify-content-md-around">
 
-      <div id="filter" class="dropdown">
-        <i
-          class="bi bi-funnel-fill dropdown-toggle"
-          type="button"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-        >
-        </i>
-        <ul id="filterMenu" class="dropdown-menu">
-          <li id="filterOne" class="dropdown-item">Most popular</li>
-          <li id="filterTwo" class="dropdown-item">Ended auctions</li>
-          <li id="filterFour" class="dropdown-item">All</li>
-        </ul>
-      </div>
-    </div>
   </div>
 </div>
 
@@ -210,18 +184,11 @@
 <section class="container-fluid d-flex flex-column maxWidth">
   <h2 class="text-center mb-4">Latest auctions</h2>
 
-  <div id="auctions" class="mb-4"></div>
+  <div id="auctions" class="mb-5 home-auction"></div>
   <div id="loader" class="d-flex justify-content-center align-items-center">
   <div class="spinner-border" role="status">
     <span class="visually-hidden">Loading...</span>
   </div></div>
-
-  <button
-    id="loadMoreBtn"
-    class="text-white fw-bolder w-50 bg-secondary rounded border-0 py-2 mx-auto mb-5"
-  >
-    Load more
-  </button>
 </section>
 </main>
 
