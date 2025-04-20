@@ -15,6 +15,26 @@ export function signUpFormRoute(){
         const form = event.target;
         const formData = new FormData(form);
         const profile = Object.fromEntries(formData.entries());
+        const name = profile.name?.trim();
+        const email = profile.email?.trim();
+        const password = profile.password?.trim();
+
+        // Validation checks
+        if (!name || !email || !password) {
+            alert("All fields are required.");
+            return;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            alert("Please enter a valid email address.");
+            return;
+        }
+
+        if (password.length < 8) {
+            alert("Password must be at least 8 characters long.");
+            return;
+        }
         registerUser(profile);
     });
 }

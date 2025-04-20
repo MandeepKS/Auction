@@ -48,7 +48,6 @@ export async function adminProfile(){
 
                 const card = document.createElement('div');
                 card.className = 'card shadow-lg p-4 text-center';
-
                 // Profile Image
                 const profileImageContainer = document.createElement('div');
                 profileImageContainer.className = 'circle mx-auto mb-3';

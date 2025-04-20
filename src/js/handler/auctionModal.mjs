@@ -18,6 +18,28 @@ export function createAuctionRoute() {
       const form = event.target;
       const formData = new FormData(form);
       const auctionListing = Object.fromEntries(formData.entries());
+      const title = auctionListing.title?.trim();
+      const description = auctionListing.description?.trim();
+      const media = auctionListing.media?.trim();
+
+      // Validation
+      if (!title || !description) {
+        alert("Title and description are required.");
+        return;
+      }
+
+      // Media URL validation
+      if (media) {
+        try {
+          new URL(media); // Throws if invalid
+        } catch (e) {
+          alert("Please enter a valid URL for media.");
+          return;
+        }
+      } else if(!media){
+        alert("Media URL is required");
+        return
+      }
       createListing(auctionListing);
       form.reset();
     });

@@ -42,10 +42,6 @@ export async function router() {
     if(urlPath === "/admin/listings/" || urlPath === "/admin/listings/index.html"){
         adminListings();
     }
-    // Admin Wins page
-    if(urlPath === "/admin/wins/" || urlPath === "/admin/wins/index.html"){
-        adminProfile();
-    }
     // Single Listing page
     if(urlPath === "/list/" || urlPath === "/list/index.html"){
         renderSingleList();

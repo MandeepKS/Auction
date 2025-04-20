@@ -34,9 +34,10 @@ export async function adminListings(){
                     const urlResponse = await response.json();
                     throw new Error("Failed to fetch list: " + urlResponse.errors[0].message);
                 }
-                else{
                     const userData = await response.json();
                     const listings = userData.data;
+                 if(listings.length > 0){
+
                     console.log('Listings: ' , listings);
                      // Create Bootstrap grid container and row
                     const container = document.createElement('div');
@@ -112,6 +113,14 @@ export async function adminListings(){
                     });
                     container.appendChild(row);
                     adminListingsBody.appendChild(container);
+                } else{
+                    const container = document.createElement('div');
+                    container.className = "container";
+                    const h1 = document.createElement('h1');
+                    h1.className =' text-center mt-5';
+                    h1.innerHTML = "No list found!";
+                    container.append(h1);
+                    adminListingsBody.append(container);
                 }
             } catch(error){
                 console.log(error);

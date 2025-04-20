@@ -19,6 +19,21 @@ export function loginFormRoute() {
         const form = event.target;
         const formData = new FormData(form);
         const profile = Object.fromEntries(formData.entries());
+         // Basic validation
+         const email = profile.email?.trim();
+         const password = profile.password?.trim();
+
+         if (!email || !password) {
+             alert("Both email and password are required.");
+             return;
+         }
+
+         // Email format check
+         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+         if (!emailRegex.test(email)) {
+             alert("Please enter a valid email address.");
+             return;
+         }
         loginUser(profile);
     });
 }
