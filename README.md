@@ -21,11 +21,8 @@ The auction house application is designed for ease of use with the following fun
 
 - **Creating Listings**: Registered users can create their auction listings. This feature enables users to add items to the auction pool, enhancing the marketplace's variety.
 
-- **Deleting Listings**: Users can delete their listings, providing control and flexibility over their auction items.
-
 - **Bidding on Auctions**: Registered users can use their credits to bid on listed auctions. Bidding is a straightforward process, and users can participate in any open auction.
 
-- **API Limitations**: To maintain relevance and quality, the API fetch has been limited to 500 posts. This ensures that the listings primarily showcase auctions from our class and related items.
 
 
 ## Installation
