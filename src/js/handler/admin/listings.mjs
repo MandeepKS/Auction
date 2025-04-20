@@ -51,10 +51,10 @@ export async function adminListings(){
                         a.href = url + id;
                         a.style.textDecoration = 'none';
                         const colDiv = document.createElement('div');
-                        colDiv.className = 'col col-12 col-md-6 col-lg-4'; // Each card takes 1/3 of the row
+                        colDiv.className = 'col col-12 col-md-6 col-lg-4 mt-5';
 
                         const card = document.createElement('div');
-                        card.className = 'card card-home mt-3 p-3';
+                        card.className = 'card card-home mt-5 p-3';
 
                         // Image setup
                         const image = document.createElement('img');
