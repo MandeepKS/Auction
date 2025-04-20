@@ -26,15 +26,12 @@ export async function adminProfile(){
 
             if(response.ok){
                 const userData = await response.json();
-                console.log('response get profile api:', userData);
                 let userName = userData.data.name;
                 let email = userData.data.email;
                 let userListings = userData.data._count.listings;
                 let userWins = userData.data._count.wins;
                 let avatarImage = userData.data.avatar.url;
                 let avatarAlt = userData.data.avatar.alt;
-                let userTotalCredits = userData.data.credits;
-                console.log(userTotalCredits);
                 container.className = 'container py-5';
 
                 const section = document.createElement('div');

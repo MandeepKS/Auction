@@ -25,6 +25,6 @@ export async function bidSubmit(bidAmount, listID){
             alert('Your bid placed successfully');
         }
     }catch(error){
-        console.log(error);
+        console.error(error);
     }
 }

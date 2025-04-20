@@ -20,8 +20,6 @@ export async function renderListings() {
   const auctions = document.getElementById('auctions');
   const loader = document.getElementById('loader');
   auctions.appendChild(loader);
-  console.log(listings);
-
   const searchInput = document.getElementById('searchInput');
 
   const renderCards = (data) => {
@@ -216,7 +214,6 @@ export async function renderSingleList(){
         const bidAmount = prompt('Enter bid amount:');
         if (bidAmount && !isNaN(bidAmount)) {
           bidSubmit(bidAmount, list.id);
-          console.log(`User bid: ${bidAmount}`);
         } else {
           alert('Please enter a valid number.');
         }
@@ -242,7 +239,6 @@ export async function renderSingleList(){
     const avatarImg = bidder?.bidder?.avatar.url ||'https://images.unsplash.com/photo-1579547945413-497e1b99dac0?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&q=80&h=500&w=1500';
     const bidderName = bidder?.bidder?.name;
     const bidAmount = bidder?.amount;
-    console.log('reverse bid', bidder);
     bottomStatus.className = 'd-flex align-items-center p-2 mt-2 rounded';
     bottomStatus.style.backgroundColor = '#d3e4c2';
 
@@ -279,5 +275,4 @@ rightCol.appendChild(rightCard);
   row.appendChild(colDiv);
   container.appendChild(row);
   singleBid.appendChild(container);
-    console.log('single list', list);
   }

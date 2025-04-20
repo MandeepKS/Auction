@@ -31,14 +31,11 @@ export async function createListing(listingData) {
             body:JSON.stringify(formattedData),
             headers:headers(),
         });
-        console.log(response);
         const userData = await response.json();
-        console.log('Submitted auction data Test',userData);
-
         if(response.ok){
             alert("Listing has been created successfully!");
         } else{
-            throw new Error("Failed to fetch list: " + response.statusText);
+            throw new Error("Failed to fetch list: " + userData.errors[0].message);
         }
     } catch (error) {
         console.error(error);

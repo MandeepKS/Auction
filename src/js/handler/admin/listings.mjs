@@ -37,8 +37,6 @@ export async function adminListings(){
                     const userData = await response.json();
                     const listings = userData.data;
                  if(listings.length > 0){
-
-                    console.log('Listings: ' , listings);
                      // Create Bootstrap grid container and row
                     const container = document.createElement('div');
                     container.className = 'container';
